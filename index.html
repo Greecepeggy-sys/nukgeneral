@@ -3,774 +3,955 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>國立高雄大學總務處 · 115年總務處校聘人員分析</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<title>高大總務處工作報告 114學年第2學期</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{font-size:16px;}
-body{
-  background:#f5f4f0;
-  color:#1a1a18;
-  font-family:'Noto Sans TC',sans-serif;
-  font-weight:400;
-  min-height:100vh;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+:root{
+  --navy:#1b3a6b; --navy2:#2756a8;
+  --teal:#0f6e56; --teal2:#1d9e75;
+  --gold:#c88b1a; --gold2:#e8a820;
+  --coral:#c0392b; --coral2:#e74c3c;
+  --purple:#7d3c98; --purple2:#9b59b6;
+  --blue2:#5a7fd4;
+  --bg:#f0f2f7; --card:#fff; --border:#dde3ef;
+  --txt:#1a1e2e; --txt2:#4a5570; --txt3:#8a94aa;
+  --sh:0 2px 10px rgba(27,58,107,.09);
+  --sh2:0 4px 20px rgba(27,58,107,.13);
+  --r:12px; --r2:8px;
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* ── LAYOUT: fixed full-viewport, no scroll ── */
+body{font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif;background:var(--bg);color:var(--txt);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
 
 /* ── HEADER ── */
-.site-header{
-  background:#fff;
-  border-bottom:2px solid #1a1a18;
-  padding:2rem 2.5rem 1.5rem;
-}
-.eyebrow{
-  font-family:'DM Mono',monospace;
-  font-size:12px;
-  letter-spacing:0.18em;
-  color:#888;
-  text-transform:uppercase;
-  margin-bottom:0.5rem;
-}
-.site-header h1{
-  font-family:'Noto Serif TC',serif;
-  font-size:28px;
-  font-weight:700;
-  line-height:1.3;
-  color:#1a1a18;
-}
-.site-header h1 em{color:#b85c2a;font-style:normal;}
-.header-meta{
-  margin-top:0.5rem;
-  font-size:14px;
-  color:#666;
-  font-family:'DM Mono',monospace;
-}
+.hdr{background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 24px;flex-shrink:0;}
+.hdr-l{display:flex;align-items:center;gap:10px;}
+.logo{width:36px;height:36px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:var(--navy);flex-shrink:0;}
+.hdr-title{font-size:15px;font-weight:700;letter-spacing:.5px;}
+.hdr-sub{font-size:11px;opacity:.72;margin-top:1px;}
+.legend{display:flex;gap:12px;align-items:center;font-size:12px;flex-shrink:0;}
+.ldot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:3px;}
+.yl{color:var(--gold2);font-weight:700;}
+.gl{color:var(--teal2);font-weight:700;}
 
-/* ── KPI STRIP ── */
-.kpi-strip{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  background:#fff;
-  border-bottom:2px solid #1a1a18;
-}
-.kpi-cell{
-  padding:1.25rem 2rem;
-  border-right:1px solid #e8e6e0;
-}
-.kpi-cell:last-child{border-right:none;}
-.kpi-lbl{font-size:12px;color:#888;letter-spacing:0.1em;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:6px;}
-.kpi-num{font-size:32px;font-weight:700;font-family:'DM Mono',monospace;line-height:1;color:#1a1a18;}
-.kpi-sub{font-size:13px;color:#888;margin-top:4px;}
-.kpi-num.amber{color:#b85c2a;}
-.kpi-num.blue{color:#2a6bb8;}
-.kpi-num.green{color:#2a8c50;}
+/* ── NAV ── */
+.nav{background:#fff;display:flex;border-bottom:2px solid var(--border);padding:0 18px;overflow-x:auto;flex-shrink:0;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.nav::-webkit-scrollbar{height:0;}
+.ntab{display:flex;align-items:center;gap:5px;padding:9px 14px;font-size:13px;font-weight:500;color:var(--txt2);border:none;background:none;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:.15s;}
+.ntab:hover{color:var(--navy);}
+.ntab.on{color:var(--navy);border-bottom-color:var(--navy);font-weight:700;}
+.ntab .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 
-/* ── NAV TABS ── */
-.nav-wrap{
-  background:#fff;
-  border-bottom:2px solid #1a1a18;
-  padding:0 2.5rem;
-  display:flex;
-  gap:0;
-  overflow-x:auto;
-}
-.nav-btn{
-  font-family:'Noto Sans TC',sans-serif;
-  font-size:15px;
-  font-weight:500;
-  padding:1rem 1.75rem;
-  border:none;
-  background:transparent;
-  color:#888;
-  cursor:pointer;
-  border-bottom:3px solid transparent;
-  white-space:nowrap;
-  transition:color 0.15s, border-color 0.15s;
-  margin-bottom:-2px;
-}
-.nav-btn:hover{color:#1a1a18;}
-.nav-btn.active{color:#b85c2a;border-bottom-color:#b85c2a;font-weight:700;}
+/* ── CONTENT: fills remaining height exactly, NO overflow ── */
+.content{flex:1;overflow:hidden;padding:10px 18px;background:var(--bg);display:flex;flex-direction:column;}
+.sec{display:none;flex:1;flex-direction:column;gap:8px;overflow:hidden;}
+.sec.on{display:flex;}
 
-/* ── MAIN ── */
-main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;}
-.page{display:none;}
-.page.active{display:block;}
+/* ── SECTION HEADER (compact) ── */
+.sl-hdr{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.sl-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sl-hdr h1{font-size:17px;font-weight:800;color:var(--navy);}
+.sl-hdr p{font-size:11px;color:var(--txt3);margin-top:2px;}
 
-/* ── SECTION TITLE ── */
-.sec-title{
-  font-family:'Noto Serif TC',serif;
-  font-size:22px;
-  font-weight:700;
-  color:#1a1a18;
-  margin-bottom:0.5rem;
-}
-.sec-desc{font-size:14px;color:#666;margin-bottom:2rem;line-height:1.7;}
+/* ── ACHIEVEMENT BANNER ── */
+.ach{border-radius:var(--r);padding:10px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--sh2);color:#fff;flex-shrink:0;}
+.ach .ico{font-size:26px;flex-shrink:0;}
+.ach .at{font-size:14px;font-weight:700;margin-bottom:2px;}
+.ach .ad{font-size:12px;opacity:.92;line-height:1.5;}
+
+/* ── GRID LAYOUTS ── */
+.row{display:grid;gap:8px;flex:1;min-height:0;}
+.col2{grid-template-columns:1fr 1fr;}
+.col3{grid-template-columns:1fr 1fr 1fr;}
+.col-3-2{grid-template-columns:3fr 2fr;}
+.col-2-3{grid-template-columns:2fr 3fr;}
 
 /* ── CARD ── */
-.card{
-  background:#fff;
-  border:1.5px solid #e0ddd6;
-  border-radius:12px;
-  padding:1.75rem 2rem;
-  margin-bottom:1.5rem;
-}
-.card-title{
-  font-size:13px;
-  letter-spacing:0.12em;
-  color:#999;
-  text-transform:uppercase;
-  font-family:'DM Mono',monospace;
-  margin-bottom:1.25rem;
-  font-weight:500;
-}
+.card{background:var(--card);border-radius:var(--r);padding:10px 14px;box-shadow:var(--sh);border:1px solid var(--border);display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+.ctitle{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:7px;flex-shrink:0;display:flex;align-items:center;gap:5px;}
 
-/* ── GRID ── */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:1.5rem;}
-@media(max-width:700px){.g2,.g3{grid-template-columns:1fr;}}
+/* ── HIGHLIGHT (gold left border, v1 style) ── */
+.hl{display:flex;align-items:flex-start;gap:10px;padding:7px 12px;background:#fff8e1;border-left:4px solid var(--gold2);border-radius:0 8px 8px 0;margin-bottom:6px;flex-shrink:0;}
+.hl:last-of-type{margin-bottom:0;}
+.hl-n{font-size:18px;font-weight:900;color:var(--gold2);line-height:1.2;min-width:24px;}
+.hl-t{font-size:13px;line-height:1.55;color:var(--txt);}
+.hl-t strong{color:var(--navy);}
 
-/* ── CHART WRAP ── */
-.ch{position:relative;width:100%;}
+/* ── COMPARISON HIGHLIGHT (teal) ── */
+.chl{display:flex;align-items:flex-start;gap:10px;padding:7px 12px;background:#e8f7f2;border-left:4px solid var(--teal2);border-radius:0 8px 8px 0;margin-bottom:6px;flex-shrink:0;}
+.chl-t{font-size:12.5px;line-height:1.55;color:var(--txt);}
+.chl-t strong{color:var(--teal);}
 
-/* ── HBAR ── */
-.hbars{display:flex;flex-direction:column;gap:14px;}
-.hbar-row{}
-.hbar-top{display:flex;justify-content:space-between;margin-bottom:5px;font-size:14px;}
-.hbar-name{color:#333;font-weight:500;}
-.hbar-cnt{font-family:'DM Mono',monospace;font-weight:500;color:#1a1a18;}
-.hbar-track{height:10px;background:#f0ede6;border-radius:5px;overflow:hidden;}
-.hbar-fill{height:100%;border-radius:5px;transition:width 1s cubic-bezier(.16,1,.3,1);}
+/* ── KPI ROW ── */
+.krow{display:grid;gap:8px;flex-shrink:0;}
+.k4{grid-template-columns:repeat(4,1fr);}
+.k6{grid-template-columns:repeat(6,1fr);}
+.kbox{background:var(--card);border-radius:var(--r2);padding:8px 6px;text-align:center;border:1px solid var(--border);box-shadow:var(--sh);}
+.kval{font-size:18px;font-weight:900;line-height:1.1;margin-bottom:2px;}
+.klbl{font-size:10.5px;color:var(--txt3);line-height:1.35;}
+.kdiff{font-size:10.5px;font-weight:700;margin-top:2px;}
+.kdiff.up{color:var(--teal2);}
+.kdiff.dn{color:var(--coral);}
+.kdiff.neu{color:var(--txt3);}
 
-/* ── DONUT LEGEND ── */
-.donut-row{display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;}
-.d-legend{display:flex;flex-direction:column;gap:14px;flex:1;min-width:180px;}
-.dl-row{display:flex;align-items:center;gap:10px;}
-.dl-swatch{width:12px;height:12px;border-radius:3px;flex-shrink:0;}
-.dl-label{font-size:14px;color:#333;flex:1;}
-.dl-val{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;}
-.dl-names{font-size:12px;color:#999;padding-left:22px;margin-top:-8px;line-height:1.8;}
+/* ── CHART WRAPPER: fills parent card ── */
+.ch-wrap{flex:1;min-height:0;position:relative;}
+.ch-wrap canvas{position:absolute;inset:0;width:100%!important;height:100%!important;}
+
+/* ── PROGRESS BAR ── */
+.pgrow{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.pgrow:last-child{margin-bottom:0;}
+.pglbl{font-size:12.5px;min-width:95px;color:var(--txt2);font-weight:500;}
+.pgwrap{flex:1;height:8px;background:#eef1f8;border-radius:4px;overflow:hidden;}
+.pgfill{height:100%;border-radius:4px;}
+.pgval{font-size:12.5px;font-weight:700;min-width:80px;text-align:right;color:var(--navy);}
 
 /* ── TABLE ── */
-.tbl-wrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;font-size:14px;}
-thead th{
-  text-align:left;
-  font-family:'DM Mono',monospace;
-  font-size:11px;
-  letter-spacing:0.1em;
-  color:#999;
-  border-bottom:2px solid #e0ddd6;
-  padding:0 14px 10px;
-  white-space:nowrap;
-  font-weight:500;
-}
-tbody td{
-  padding:11px 14px;
-  border-bottom:1px solid #f0ede6;
-  color:#444;
-  vertical-align:middle;
-  white-space:nowrap;
-}
-tbody tr:hover td{background:#faf9f5;}
-td.td-name{color:#1a1a18;font-weight:700;font-size:15px;}
-.gpill{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:26px;height:26px;border-radius:50%;
-  font-size:13px;font-weight:500;
-}
-.bar-sm{display:inline-block;height:5px;border-radius:3px;vertical-align:middle;margin-left:8px;}
-.tbadge{
-  font-family:'DM Mono',monospace;font-size:12px;
-  padding:3px 9px;border-radius:5px;font-weight:500;
-}
+.dtbl{width:100%;border-collapse:collapse;font-size:12.5px;}
+.dtbl th{background:var(--navy);color:#fff;padding:6px 9px;text-align:center;font-size:12px;font-weight:600;}
+.dtbl th:first-child{border-radius:6px 0 0 0;}
+.dtbl th:last-child{border-radius:0 6px 0 0;}
+.dtbl td{padding:6px 9px;text-align:center;border-bottom:1px solid var(--border);font-size:12.5px;}
+.dtbl tr:nth-child(even) td{background:#f7f9fd;}
+.dtbl td:first-child{text-align:left;font-weight:500;}
+.dtbl .pc{color:var(--gold);font-weight:700;}
+.dtbl .cc{color:var(--teal);font-weight:700;}
 
-/* ── FILTER TABS ── */
-.ftabs{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;}
-.ftab{
-  font-size:14px;font-weight:500;
-  padding:7px 18px;
-  border:1.5px solid #e0ddd6;
-  border-radius:8px;
-  background:#fff;
-  color:#888;
-  cursor:pointer;
-  transition:all 0.15s;
-}
-.ftab:hover{border-color:#b85c2a;color:#b85c2a;}
-.ftab.active{background:#b85c2a;border-color:#b85c2a;color:#fff;}
+/* ── BULLET LIST ── */
+.blist{list-style:none;overflow:hidden;}
+.blist li{padding:5px 0 5px 18px;position:relative;font-size:13px;line-height:1.55;border-bottom:1px solid var(--border);}
+.blist li:last-child{border:none;}
+.blist li::before{content:'▸';position:absolute;left:0;color:var(--gold2);font-size:11px;top:7px;}
 
-/* ── ROTATE CARDS ── */
-.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;}
-.rcard{
-  background:#fff;
-  border:1.5px solid #e0ddd6;
-  border-radius:12px;
-  padding:1.5rem;
-  transition:box-shadow 0.2s, border-color 0.2s;
-}
-.rcard:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08);border-color:#ccc;}
-.rc-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.rc-avatar{
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:700;flex-shrink:0;
-}
-.rc-name{font-size:17px;font-weight:700;color:#1a1a18;}
-.rc-meta{font-size:13px;color:#888;margin-top:2px;}
-.rc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
-.rtag{font-size:12px;font-family:'DM Mono',monospace;padding:3px 9px;border-radius:5px;font-weight:500;}
-.rc-reason{font-size:14px;color:#555;line-height:1.7;}
-.rc-suggest{margin-top:10px;font-size:13px;font-family:'DM Mono',monospace;font-weight:500;}
-
-/* ── ANALYSIS BLOCKS ── */
-.analysis-box{
-  background:#faf9f5;
-  border-left:4px solid #b85c2a;
-  border-radius:0 8px 8px 0;
-  padding:1rem 1.5rem;
-  margin-top:1rem;
-  font-size:14px;
-  color:#444;
-  line-height:1.8;
-}
-.analysis-box strong{color:#1a1a18;}
+/* ── BADGE ── */
+.badge{display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;margin-left:4px;}
+.bg{background:#d4edda;color:#155724;}
+.bb{background:#cce5ff;color:#004085;}
+.bo{background:#fff3cd;color:#856404;}
 
 /* ── FOOTER ── */
-footer{
-  border-top:2px solid #1a1a18;
-  padding:1.25rem 2.5rem;
-  display:flex;justify-content:space-between;align-items:center;
-  background:#fff;
-  font-family:'DM Mono',monospace;
-  font-size:12px;
-  color:#888;
-}
-footer a{color:#2a6bb8;}
-
-/* ── ANIM ── */
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.page.active .card,.page.active .rcard{animation:fadeIn 0.35s ease both;}
-.page.active .card:nth-child(2){animation-delay:0.05s;}
-.page.active .card:nth-child(3){animation-delay:0.1s;}
+.ftr{background:#fff;border-top:1px solid var(--border);padding:6px 24px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--txt3);flex-shrink:0;}
+.fnav{display:flex;gap:6px;}
+.fnav button{padding:5px 14px;border-radius:6px;border:1px solid var(--border);background:#fff;font-size:12px;cursor:pointer;color:var(--navy);font-weight:600;transition:.15s;}
+.fnav button:hover{background:var(--bg);}
+.fnav button:disabled{opacity:.3;cursor:not-allowed;}
+.pgind{font-size:12px;font-weight:600;color:var(--txt2);}
 </style>
 </head>
 <body>
 
-<div class="site-header">
-  <div class="eyebrow">National University of Kaohsiung · Office of General Affairs</div>
-  <h1>115年總務處校聘人員 <em>分析儀表板</em></h1>
-  <div class="header-meta">共 20 位人員 &nbsp;·&nbsp; 來源：總務處名冊</div>
+<!-- ══ REPORTER BAR ══ -->
+<div style="background:#0f2547;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:5px 24px;flex-shrink:0;font-size:12.5px;letter-spacing:.3px;border-bottom:1px solid rgba(255,255,255,.12);">
+  <span>📢 <strong style="font-size:13px">報告人：陳怡凱 總務長（財金系教授）</strong></span>
+  <span style="opacity:.85">🗓 時間：115年6月5日</span>
 </div>
-
-<div class="kpi-strip">
-  <div class="kpi-cell">
-    <div class="kpi-lbl">總人數</div>
-    <div class="kpi-num amber">20</div>
-    <div class="kpi-sub">所屬：總務處</div>
+<!-- ══ HEADER ══ -->
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="logo">高大</div>
+    <div>
+      <div class="hdr-title">國立高雄大學 總務處工作報告</div>
+      <div class="hdr-sub">114 學年度第 2 學期 ｜ 總務會議 ｜ 115年6月5日</div>
+    </div>
   </div>
-  <div class="kpi-cell">
-    <div class="kpi-lbl">最高年資</div>
-    <div class="kpi-num amber">25 <span style="font-size:18px;color:#aaa;">年</span></div>
-    <div class="kpi-sub">張夏甄・校聘組員</div>
-  </div>
-  <div class="kpi-cell">
-    <div class="kpi-lbl">平均年資</div>
-    <div class="kpi-num blue" id="kpiAvg">—</div>
-    <div class="kpi-sub">計算至 114/8/31</div>
-  </div>
-  <div class="kpi-cell">
-    <div class="kpi-lbl">10年以上比例</div>
-    <div class="kpi-num green">75%</div>
-    <div class="kpi-sub">15 位核心骨幹</div>
+  <div class="legend">
+    <span><span class="ldot" style="background:var(--gold2)"></span><span class="yl">去年同期（113學年）</span></span>
+    <span><span class="ldot" style="background:var(--teal2)"></span><span class="gl">本學期（114學年）</span></span>
   </div>
 </div>
 
-<nav class="nav-wrap">
-  <button class="nav-btn active" onclick="goPage('p-gender',this)">① 性別比例</button>
-  <button class="nav-btn" onclick="goPage('p-title',this)">② 職稱結構</button>
-  <button class="nav-btn" onclick="goPage('p-seniority',this)">③ 年資分布</button>
-  <button class="nav-btn" onclick="goPage('p-table',this)">④ 人員名冊</button>
-  <button class="nav-btn" onclick="goPage('p-rotate',this)">⑤ 職務輪調原則</button>
-</nav>
+<!-- ══ NAV ══ -->
+<div class="nav">
+  <button class="ntab on"  onclick="goTo(0)"><span class="dot" style="background:var(--navy)"></span>總覽亮點</button>
+  <button class="ntab"     onclick="goTo(1)"><span class="dot" style="background:var(--gold2)"></span>總務長室</button>
+  <button class="ntab"     onclick="goTo(2)"><span class="dot" style="background:var(--teal2)"></span>營繕組</button>
+  <button class="ntab"     onclick="goTo(3)"><span class="dot" style="background:var(--blue2)"></span>事務組</button>
+  <button class="ntab"     onclick="goTo(4)"><span class="dot" style="background:var(--purple2)"></span>出納組</button>
+  <button class="ntab"     onclick="goTo(5)"><span class="dot" style="background:var(--coral)"></span>文書組</button>
+  <button class="ntab"     onclick="goTo(6)"><span class="dot" style="background:#16a085"></span>保管組</button>
+  <button class="ntab"     onclick="goTo(7)"><span class="dot" style="background:#27ae60"></span>環安衛組</button>
+</div>
 
-<main>
+<!-- ══ CONTENT ══ -->
+<div class="content">
 
-<!-- PAGE 1: 性別 -->
-<div class="page active" id="p-gender">
-  <div class="sec-title">性別比例分析</div>
-  <div class="sec-desc">名冊共 20 位人員，女性 12 人（60%），男性 8 人（40%）。女性比例略高於男性，顯示總務行政工作的性別組成相對均衡，女性在組員職稱尤為集中。</div>
-  <div class="g2">
+<!-- ══════════════════════════════
+  0  總覽亮點
+══════════════════════════════════ -->
+<div class="sec on" id="sec0">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#e8f0fb">🏫</div>
+    <div><h1>本學期重要亮點總覽</h1><p>114學年度第2學期 ｜ 與去年同期（113學年第2學期）比較</p></div>
+  </div>
+
+  <!-- KPI -->
+  <div class="krow k6">
+    <div class="kbox"><div class="kval" style="color:var(--navy)">9,171,056</div><div class="klbl">智慧水資源補助（元）</div><div class="kdiff up">▲ 本年新增</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--gold2)">85台</div><div class="klbl">學二宿舍冷氣汰換</div><div class="kdiff up">▲ 去年71台</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--teal2)">417個</div><div class="klbl">Ubike柱位（4/17完工）</div><div class="kdiff up">▲ 本年新增</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--navy)">96.25%</div><div class="klbl">線上簽核比率</div><div class="kdiff neu">≈ 去年96.27%</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--coral)">1.38億</div><div class="klbl">學雜費徵收（元）</div><div class="kdiff neu">去年1.42億</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--teal2)">430人</div><div class="klbl">廠商滿意度問卷</div><div class="kdiff up">▲ 去年263人</div></div>
+  </div>
+
+  <!-- Infographic strip: 4 theme cards inspired by uploaded亮點圖 -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;flex-shrink:0;">
+    <!-- 校園設施升級 -->
+    <div style="background:linear-gradient(135deg,#e8f4fd,#d0eaf8);border-radius:10px;padding:10px 14px;border:1px solid #b8d9f0;display:flex;align-items:flex-start;gap:10px;">
+      <div style="font-size:28px;line-height:1;flex-shrink:0;">🏗️</div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#1b4f8a;background:#b8d9f0;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:5px;">校園設施與空間升級</div>
+        <div style="font-size:12px;color:#1b3a6b;line-height:1.5;">智慧水表 <strong>25個</strong>建置完成<br>學二宿舍冷氣汰換 <strong>85台</strong><br>路平工程二期暑假施工</div>
+      </div>
+    </div>
+    <!-- 行政數位化 -->
+    <div style="background:linear-gradient(135deg,#e8f7f2,#c8f0e0);border-radius:10px;padding:10px 14px;border:1px solid #9ddfc4;display:flex;align-items:flex-start;gap:10px;">
+      <div style="font-size:28px;line-height:1;flex-shrink:0;">📱</div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#0f6e56;background:#9ddfc4;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:5px;">行政數位化與交通便利</div>
+        <div style="font-size:12px;color:#0a4a3a;line-height:1.5;">公文線上簽核 <strong>96.25%</strong><br>Ubike柱位擴增至 <strong>417個</strong><br>電子收文 ↑ <strong>94.83%</strong></div>
+      </div>
+    </div>
+    <!-- 校園安全 -->
+    <div style="background:linear-gradient(135deg,#fff8e1,#fdecc0);border-radius:10px;padding:10px 14px;border:1px solid #f5d080;display:flex;align-items:flex-start;gap:10px;">
+      <div style="font-size:28px;line-height:1;flex-shrink:0;">🔒</div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#7a4e00;background:#f5d080;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:5px;">校園安全管理重點</div>
+        <div style="font-size:12px;color:#5a3800;line-height:1.5;">廁所壓扣警報 <strong>97件</strong><br>門窗燈光未關 <strong>107件</strong><br>監視器調閱 <strong>3件</strong>｜警衛通報 <strong>418件</strong></div>
+      </div>
+    </div>
+    <!-- 智慧服務與永續 -->
+    <div style="background:linear-gradient(135deg,#f0eefa,#ddd5f8);border-radius:10px;padding:10px 14px;border:1px solid #bfaef0;display:flex;align-items:flex-start;gap:10px;">
+      <div style="font-size:28px;line-height:1;flex-shrink:0;">🌿</div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#5b2d91;background:#bfaef0;padding:2px 8px;border-radius:12px;display:inline-block;margin-bottom:5px;">智慧服務與校園永續</div>
+        <div style="font-size:12px;color:#3a1a6b;line-height:1.5;">智能咖啡機 <strong>6台</strong>、拉麵機新增<br>黃鸝監測 <strong>9巢</strong>、3巢離巢<br>全國環教績優 <strong>優等獎</strong> 🏅</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main body: highlights LEFT + chart RIGHT — equal col2 -->
+  <div class="row col2">
+    <!-- Left: five highlights -->
     <div class="card">
-      <div class="card-title">性別比例圓餅圖</div>
-      <div class="donut-row">
-        <div style="width:180px;height:180px;flex-shrink:0;position:relative;">
-          <canvas id="genderChart" role="img" aria-label="性別比例：女性12人60%，男性8人40%"></canvas>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
-            <div style="font-family:'DM Mono',monospace;font-size:28px;font-weight:700;color:#1a1a18;">20</div>
-            <div style="font-size:12px;color:#aaa;letter-spacing:0.1em;">人</div>
-          </div>
+      <div class="ctitle">⭐ 本學期五大亮點</div>
+      <div class="hl"><div class="hl-n">①</div><div class="hl-t"><strong>智慧水資源計畫：</strong>水利署補助 <strong>9,171,056 元</strong>，25個智慧水表安裝完成，用水管理系統建置中，大幅提升校園用水效率。</div></div>
+      <div class="hl"><div class="hl-n">②</div><div class="hl-t"><strong>節能汰換加速：</strong>學二宿舍 <strong>85台冷氣</strong>（去年71台）全面汰換完工，節電補助申請完成；人文院教室空調持續系統性更新。</div></div>
+      <div class="hl"><div class="hl-n">③</div><div class="hl-t"><strong>校園生活升級：</strong>Ubike柱位擴增至 <strong>417個</strong>；智能咖啡機從3台增至 <strong>6台</strong>；新增智能拉麵機試辦。</div></div>
+      <div class="hl"><div class="hl-n">④</div><div class="hl-t"><strong>數位行政再鞏固：</strong>線上簽核 <strong>96.25%</strong>、電子收文 <strong>94.83%</strong>（↑去年93.51%）、電子發文 <strong>93.17%</strong>。</div></div>
+      <div class="hl"><div class="hl-n">⑤</div><div class="hl-t"><strong>永續環境深耕：</strong>6場中小學環境教育體驗課；黃鸝繁殖監測9巢，3巢順利離巢；人耘亦耘耕作計畫14區。</div></div>
+      <!-- 特別獎項：獨立色系凸顯 -->
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:8px 13px;background:linear-gradient(135deg,#fffbea,#fff3c4);border-left:4px solid #f0a500;border-radius:0 9px 9px 0;margin-top:4px;">
+        <div style="font-size:20px;line-height:1.2;flex-shrink:0;">🏅</div>
+        <div style="font-size:13px;line-height:1.6;color:#6b3d00;">
+          <span style="font-weight:900;font-size:13.5px;color:#b35a00;">【殊榮】</span>
+          環安衛組 <strong style="color:#7a3300;">陳又菁</strong> 榮獲 114 年
+          <strong style="color:#b35a00;">全國環境教育績優人員優等獎</strong>（5月14日頒獎），
+          是對全體環安衛團隊長年推動永續環境教育的最高肯定！
         </div>
-        <div class="d-legend">
-          <div class="dl-row">
-            <div class="dl-swatch" style="background:#c47aaa;"></div>
-            <div class="dl-label">女性</div>
-            <div class="dl-val" style="color:#c47aaa;">12 人 <span style="font-size:12px;color:#aaa;">60%</span></div>
-          </div>
-          <div class="dl-names">張夏甄 張珊云 黃秋霞 李於數<br>陳又菁 鄭雅文 洪慧珍 陸亞貞<br>陳怡佑 何惠真 鄭宥萱 高月華</div>
-          <div class="dl-row" style="margin-top:6px;">
-            <div class="dl-swatch" style="background:#4a8fc4;"></div>
-            <div class="dl-label">男性</div>
-            <div class="dl-val" style="color:#4a8fc4;">8 人 <span style="font-size:12px;color:#aaa;">40%</span></div>
-          </div>
-          <div class="dl-names">吕勝宏 楊博安 曾建堯 張志堅<br>朱志昇 李欣祐 劉順天 鄭昌彬</div>
+      </div>
+    </div>
+    <!-- Right: chart (grouped bar — digital KPIs + two extra comparisons) -->
+    <div class="card">
+      <div class="ctitle">📊 行政效能指標 — 今年 vs 去年（圖表）</div>
+      <div class="ch-wrap"><canvas id="ch-overview"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+  1  總務長室
+══════════════════════════════════ -->
+<div class="sec" id="sec1">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#fdf6e3">📋</div>
+    <div><h1>總務長室</h1><p>補助計畫執行 ＆ 年度亮點</p></div>
+  </div>
+
+  <div class="ach" style="background:linear-gradient(135deg,#a67c00,var(--gold2));color:#2d1a00">
+    <div class="ico">💰</div>
+    <div>
+      <div class="at" style="color:#2d1a00">兩大補助計畫同步推進，合計逾 2,322 萬元</div>
+      <div class="ad" style="color:#4a2e00;opacity:1">智慧水資源（水利署補助 <strong>9,171,056 元</strong>）＋ 圖儀設備費（教育部 12,857,834 元 ＋ 自籌 1,250,000 元）</div>
+    </div>
+  </div>
+
+  <div class="row col2">
+    <!-- 補助金額圖 -->
+    <div class="card">
+      <div class="ctitle">📊 補助計畫金額比較（元）</div>
+      <div class="ch-wrap"><canvas id="ch-grant"></canvas></div>
+    </div>
+    <!-- 右欄：表格 + 亮點 -->
+    <div style="display:flex;flex-direction:column;gap:8px;min-height:0;">
+      <div class="card" style="flex:1">
+        <div class="ctitle">📌 115年執行計畫明細</div>
+        <table class="dtbl">
+          <thead><tr><th>計畫名稱</th><th>補助（元）</th><th>自籌（元）</th></tr></thead>
+          <tbody>
+            <tr><td>智慧水資源建置管理計畫</td><td class="cc">9,171,056</td><td>—</td></tr>
+            <tr><td>114-115年圖儀設備費（分項一）</td><td class="cc">12,857,834</td><td class="cc">1,250,000</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;">
+          <div class="ctitle" style="margin-bottom:6px">🔄 去年計畫（114年）</div>
+          <table class="dtbl">
+            <thead><tr><th>計畫名稱</th><th>補助（元）</th><th>自籌（元）</th></tr></thead>
+            <tbody>
+              <tr><td>113-114年圖儀設備費（分項一）</td><td class="pc">11,205,000</td><td class="pc">1,220,000</td></tr>
+              <tr><td>山陀兒颱風災損復原計畫</td><td class="pc">7,100,000</td><td class="pc">796,000</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="analysis-box">
-        <strong>分析：</strong>女性佔多數（60%），尤其集中於校聘組員職稱（12位組員中女性佔 9 位）。技術類人員（技術員、技術工）則以男性為主。整體性別組成多元，行政與技術職類各有側重。
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">性別 × 職稱交叉分布</div>
-      <div class="ch" style="height:260px;">
-        <canvas id="genderTitleChart" role="img" aria-label="性別與職稱交叉長條圖"></canvas>
+      <div class="card" style="flex-shrink:0">
+        <div class="hl"><div class="hl-n">🌸</div><div class="hl-t"><strong>「一桐道別、等待幸福」</strong>：3月28日 <strong>60人</strong>共同參與刺桐老樹送別及茄冬迎新活動。</div></div>
+        <div class="chl"><div class="chl-t">本校世界綠色大學排名第 <strong class="gl">278名</strong>（↑去年285名），進入全球前18%！</div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE 2: 職稱 -->
-<div class="page" id="p-title">
-  <div class="sec-title">職稱結構分析</div>
-  <div class="sec-desc">共五種職稱，以「校聘組員」最多（12人，佔60%）；技術類人員（技術員＋技士＋技術工）共6人（30%）；校聘專員2人（10%）。職務編制以行政組員為主力，技術類形成支援體系。</div>
-  <div class="card">
-    <div class="card-title">各職稱人數（含姓名）</div>
-    <div class="hbars" id="titleBars"></div>
+<!-- ══════════════════════════════
+  2  營繕組
+══════════════════════════════════ -->
+<div class="sec" id="sec2">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#e6f7f2">🏗️</div>
+    <div><h1>營繕組</h1><p>校園工程建設與設備汰換 — 年度對比</p></div>
   </div>
-  <div class="card">
-    <div class="card-title">職稱比例分布</div>
-    <div class="ch" style="height:240px;">
-      <canvas id="titleChart" role="img" aria-label="職稱比例圓餅圖"></canvas>
+
+  <div class="ach" style="background:linear-gradient(135deg,var(--teal),var(--teal2))">
+    <div class="ico">⚡</div>
+    <div>
+      <div class="at">節能汰換持續深化，寒假高效完工</div>
+      <div class="ad">冷氣汰換：<span class="yl">去年 71台（OE棟）</span> → <strong>今年 85台（全棟）↑19.7%</strong>；人文院教室空調系統性更新；節電補助申請完成。</div>
     </div>
-    <div class="analysis-box">
-      <strong>分析：</strong>「組員」超過半數，是總務處行政推動的核心主力。技術員、技術工與技士構成設備維護支援體系，兩位專員則承擔規劃協調功能。建議在輪調規劃時，注意各職稱間的業務銜接與知識傳承。
+  </div>
+
+  <!-- 兩欄：左-今昨冷氣長條對比圖；右-今昨工程件數摘要 -->
+  <div class="row col2" style="flex:0 0 150px">
+    <div class="card">
+      <div class="ctitle">🌡️ 冷氣汰換台數 今年 vs 去年</div>
+      <div class="ch-wrap"><canvas id="ch-ac"></canvas></div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;justify-content:center;gap:6px;">
+      <div class="ctitle">📊 本年工程狀態一覽（6項）</div>
+      <div style="display:flex;gap:8px;justify-content:space-around;align-items:center;">
+        <div style="text-align:center;">
+          <div style="font-size:32px;font-weight:900;color:#1d9e75;line-height:1;">4</div>
+          <div style="font-size:11px;color:#0f6e56;font-weight:700;margin-top:2px;">✅ 已完成</div>
+        </div>
+        <div style="width:1px;height:48px;background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:32px;font-weight:900;color:#e8a820;line-height:1;">1</div>
+          <div style="font-size:11px;color:#c88b1a;font-weight:700;margin-top:2px;">🔧 進行中</div>
+        </div>
+        <div style="width:1px;height:48px;background:var(--border);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:32px;font-weight:900;color:#5a7fd4;line-height:1;">1</div>
+          <div style="font-size:11px;color:#2756a8;font-weight:700;margin-top:2px;">📅 規劃中</div>
+        </div>
+        <div style="width:1px;height:48px;background:var(--border);"></div>
+        <div style="text-align:center;background:linear-gradient(135deg,#e6f7f2,#d0f0e4);border-radius:8px;padding:6px 14px;">
+          <div style="font-size:11px;color:var(--txt3);margin-bottom:1px;">去年同期</div>
+          <div style="font-size:22px;font-weight:900;color:var(--gold2);line-height:1;">5 / 6</div>
+          <div style="font-size:10.5px;color:var(--gold);font-weight:700;">已完成</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 兩欄工程清單：今年（含狀態色塊）vs 去年 -->
+  <div class="row col2">
+    <div class="card">
+      <div class="ctitle">🔨 本學期（115年）重點工程進度</div>
+      <ul class="blist" style="flex:1;overflow:auto">
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>RMU4-05 高壓環路開關</strong>汰換，2/7完成，5/7正式驗收<span class="badge bg">完成</span></li>
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>學二宿舍85台冷氣</strong>汰換，3/25驗收，節電補助申請完成<span class="badge bg">完成</span></li>
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>人文院 H2-105/106 冷氣</strong>汰換，3/25驗收完成<span class="badge bg">完成</span></li>
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>法管天橋防鏽、廣場欄杆防墜</strong>改善完成<span class="badge bg">完成</span></li>
+        <li><span style="color:#e8a820;font-size:13px;">🔧</span> <strong>智慧水表25個</strong>安裝完成，用水管理系統建置中<span class="badge bo">進行中</span></li>
+        <li><span style="color:#5a7fd4;font-size:13px;">📅</span> <strong>環校步道第二期</strong>（木球場至校門口），暑假施工<span class="badge bb">規劃中</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ctitle">🔄 去年同期（114年）重點工程回顧</div>
+      <ul class="blist" style="flex:1;overflow:auto">
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>太陽能光電看台</strong>（198.99kWp），5月中旬完成併聯發電<span class="badge bg">完成</span></li>
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>高壓環路開關 RMU4-06</strong> 汰換（端午節連假施工）<span class="badge bg">完成</span></li>
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>環校步道第一期</strong>整平（宿舍區至行政大樓段）<span class="badge bg">完成</span></li>
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>學二 OE 棟 <span class="yl">71台</span>冷氣</strong>汰換，4月底驗收完成<span class="badge bg">完成</span></li>
+        <li><span style="color:#1d9e75;font-size:13px;">✅</span> <strong>綜合大樓宿舍公共空間</strong>提升改善，3/26驗收完成<span class="badge bg">完成</span></li>
+        <li><span style="color:#e8a820;font-size:13px;">🔧</span> <strong>親水空間木棧橋</strong>（山陀兒風災復原）發包設計中</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<!-- PAGE 3: 年資 -->
-<div class="page" id="p-seniority">
-  <div class="sec-title">年資分布分析</div>
-  <div class="sec-desc">以<strong>現職年資</strong>（任現職到職日起算）為主要比較依據，搭配到校年資對照。兩者差距越大，代表該員曾有內部調動歷程。橘色＝到校年資，藍色＝現職年資。</div>
+<!-- ══════════════════════════════
+  3  事務組
+══════════════════════════════════ -->
+<div class="sec" id="sec3">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#eef2fb">🚗</div>
+    <div><h1>事務組</h1><p>採購、車輛、安全、場地 — 年度比較（統計期間：115年1~4月）</p></div>
+  </div>
 
-  <!-- 主圖：雙色並排，依現職年資排序 -->
-  <div class="card">
-    <div class="card-title">到校年資 vs 現職年資 對照（依現職年資排序）</div>
-    <div style="display:flex;gap:1.5rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;">
-      <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:#555;">
-        <span style="width:14px;height:10px;background:#b85c2a;border-radius:2px;display:inline-block;"></span>到校年資
-      </span>
-      <span style="display:flex;align-items:center;gap:6px;font-size:13px;color:#555;">
-        <span style="width:14px;height:10px;background:#2a6bb8;border-radius:2px;display:inline-block;"></span>現職年資（主要比較項）
-      </span>
-    </div>
-    <div class="ch" style="height:440px;">
-      <canvas id="seniorityChart" role="img" aria-label="到校與現職年資雙色橫向條狀圖"></canvas>
+  <div class="ach" style="background:linear-gradient(135deg,#2756a8,var(--blue2))">
+    <div class="ico">🚲</div>
+    <div>
+      <div class="at">Ubike 柱位擴增至 417 個！4月17日完工；採購量大幅成長</div>
+      <div class="ad">去年尚無Ubike擴建；本年採購：<span class="yl">去年32件／5,168萬</span> → <strong>本年37件／3,040萬</strong>；警衛通報：<span class="yl">去年400件</span> → <strong>本年418件</strong>；場地借用58件，收入26.3萬元。</div>
     </div>
   </div>
 
-  <div class="g2">
-    <!-- 現職年資層級 -->
+  <div class="row col3">
     <div class="card">
-      <div class="card-title">現職年資三層次分布</div>
-      <div class="ch" style="height:220px;">
-        <canvas id="tierChart" role="img" aria-label="現職年資層級圓餅圖"></canvas>
-      </div>
-      <div class="analysis-box" style="margin-top:1rem;">
-        以<strong>現職年資</strong>計算：資深（20年以上）、中堅（10–20年）、年輕（10年以下）各層分布，反映組織對現有職務的熟悉程度。
-      </div>
+      <div class="ctitle">📦 本年採購方式分布（37件）</div>
+      <div class="ch-wrap"><canvas id="ch-proc"></canvas></div>
     </div>
-    <!-- 現職年資個人排行 hbar -->
     <div class="card">
-      <div class="card-title">現職年資個人排行</div>
-      <div class="hbars" id="cmonthsBars" style="max-height:260px;overflow-y:auto;"></div>
+      <div class="ctitle">🚗 公務派車比較（1~4月）</div>
+      <div class="ch-wrap"><canvas id="ch-car"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">🔔 警衛通報事件比較（件）</div>
+      <div class="ch-wrap"><canvas id="ch-sec"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="flex-shrink:0">
+    <div class="ctitle">📋 事務組業務數字對照（115年1~4月 vs 去年同期）</div>
+    <table class="dtbl">
+      <thead><tr><th>業務項目</th><th class="pc">去年同期（114年）</th><th class="cc">本年（115年1~4月）</th><th>變化</th></tr></thead>
+      <tbody>
+        <tr><td>採購合計件數（15萬以上）</td><td class="pc">32件</td><td class="cc">37件</td><td class="cc">↑ +5件</td></tr>
+        <tr><td>採購預算累計</td><td class="pc">5,168萬929元</td><td class="cc">3,040萬2,166元</td><td>—</td></tr>
+        <tr><td>場地借用件數</td><td class="pc">—</td><td class="cc">58件（收入263,060元）</td><td class="cc">▲</td></tr>
+        <tr><td>汽車通行證繳費</td><td class="pc">207件（2-4月）</td><td class="cc">258件（1-4月）</td><td class="cc">↑ +51件</td></tr>
+        <tr><td>機車通行證繳費</td><td class="pc">269件（2-4月）</td><td class="cc">278件（1-4月）</td><td class="cc">↑ +9件</td></tr>
+        <tr><td>臨時停車費件數</td><td class="pc">8,705件（2-4月）</td><td class="cc">12,094件（收入540,685元）</td><td class="cc">↑ +3,389件</td></tr>
+        <tr><td>中華電信申裝等案</td><td class="pc">3件（2-4月）</td><td class="cc">43件（1-4月）</td><td class="cc">↑ +40件</td></tr>
+        <tr><td>警衛通報事件合計</td><td class="pc">400件</td><td class="cc">418件</td><td class="cc">↑ +18件</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+  4  出納組
+══════════════════════════════════ -->
+<div class="sec" id="sec4">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#f3eef9">💰</div>
+    <div><h1>出納組</h1><p>學雜費、薪資、財務管理 — 年度比較</p></div>
+  </div>
+
+  <div class="ach" style="background:linear-gradient(135deg,var(--purple),var(--purple2))">
+    <div class="ico">📉</div>
+    <div>
+      <div class="at">退費金額下降 21.9%，學籍穩定度提升！</div>
+      <div class="ad"><span class="yl">去年退費：106萬9,475元</span> → <strong>本年：83萬5,131元</strong>，減少約 <strong>23.4萬元</strong>。學雜費穩健徵收，運作如常。</div>
+    </div>
+  </div>
+
+  <div class="krow k4" style="flex-shrink:0">
+    <div class="kbox"><div class="kval" style="color:var(--purple)">1.38億</div><div class="klbl">本學期學雜費徵收</div><div class="kdiff neu">去年1.42億</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--teal2)">83.5萬</div><div class="klbl">退費金額（元）</div><div class="kdiff up">▼ 去年106.9萬</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--navy)">每月1日</div><div class="klbl">教師及職員薪資</div><div class="kdiff neu">維持不變</div></div>
+    <div class="kbox"><div class="kval" style="color:var(--gold2)">每月26日</div><div class="klbl">校聘人員薪資</div><div class="kdiff neu">維持不變</div></div>
+  </div>
+
+  <div class="row col2">
+    <div class="card">
+      <div class="ctitle">💰 學雜費徵收 vs 退費比較（萬元）</div>
+      <div class="ch-wrap"><canvas id="ch-tuit"></canvas></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;min-height:0">
+      <div class="card" style="flex:1">
+        <div class="ctitle">📅 薪資入帳時程（本學期）</div>
+        <table class="dtbl">
+          <thead><tr><th>對象</th><th>入帳日</th></tr></thead>
+          <tbody>
+            <tr><td>教師及職員 5月薪資</td><td class="cc">5月1日</td></tr>
+            <tr><td>校聘人員 5月薪資</td><td class="cc">5月26日</td></tr>
+            <tr><td>兼任教師4月鐘點費</td><td class="cc">5月4日</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="flex:1">
+        <div class="ctitle">🏦 土地銀行優惠存款（兩年不變）</div>
+        <ul class="blist">
+          <li>2年期定儲利率：<strong>1.735%</strong></li>
+          <li>職員月最高 <strong>10,000元</strong>，戶上限 70萬</li>
+          <li>工友月最高 <strong>5,000元</strong>，戶上限 35萬</li>
+        </ul>
+        <div class="chl" style="margin-top:7px"><div class="chl-t">🆕 115年新增：外籍生需提供 <strong class="gl">183天以上</strong>居留證明，方適用居住者扣繳率。</div></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- PAGE 4: 名冊 -->
-<div class="page" id="p-table">
-  <div class="sec-title">人員完整名冊</div>
-  <div class="sec-desc">主要呈現「現職年資」（任現職到職日起算）與「到校年資」的對照，以及各人員所持專業證照。橘色進度條＝到校年資，藍色進度條＝現職年資。</div>
-  <div class="ftabs">
-    <button class="ftab active" onclick="filterTable('all',this)">全部（20人）</button>
-    <button class="ftab" onclick="filterTable('senior',this)">現職資深 10年以上</button>
-    <button class="ftab" onclick="filterTable('mid',this)">現職中堅 5–10年</button>
-    <button class="ftab" onclick="filterTable('junior',this)">現職年輕 5年以下</button>
-    <button class="ftab" onclick="filterTable('licensed',this)">持有證照人員</button>
+<!-- ══════════════════════════════
+  5  文書組
+══════════════════════════════════ -->
+<div class="sec" id="sec5">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#fef0f0">📄</div>
+    <div><h1>文書組</h1><p>公文管理、電子化行政 — 年度對比</p></div>
   </div>
-  <div class="card" style="padding:1.25rem;">
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>姓名</th>
-            <th>職稱</th>
-            <th>性別</th>
-            <th>到校日</th>
-            <th>到校年資</th>
-            <th>任現職到職日</th>
-            <th>現職年資</th>
-            <th>年資對照</th>
-            <th>專業證照</th>
-          </tr>
-        </thead>
-        <tbody id="staffTbody"></tbody>
+
+  <div class="ach" style="background:linear-gradient(135deg,var(--coral),var(--coral2))">
+    <div class="ico">💻</div>
+    <div>
+      <div class="at">電子收文比率持續攀升至 94.83%（↑去年93.51%）</div>
+      <div class="ad">線上簽核穩定 96% 以上；三大指標兩年均超 93%，無紙化行政已成本校行政常態。</div>
+    </div>
+  </div>
+
+  <div class="row col2">
+    <div class="card">
+      <div class="ctitle">📊 電子化行政三大指標（%）</div>
+      <div class="ch-wrap"><canvas id="ch-dig"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">📁 公文量年度比較（件）</div>
+      <div class="ch-wrap"><canvas id="ch-docs"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="flex-shrink:0">
+    <div style="display:flex;gap:6px;margin-bottom:9px;flex-wrap:wrap;">
+      <span style="background:#e8f0fb;border-radius:20px;padding:3px 12px;font-size:12px;color:#1b3a6b;font-weight:600;">📥 總收文 5,591件</span>
+      <span style="background:#e8f7f2;border-radius:20px;padding:3px 12px;font-size:12px;color:#0f6e56;font-weight:600;">📤 總發文 644件</span>
+      <span style="background:#fff8e1;border-radius:20px;padding:3px 12px;font-size:12px;color:#7a4e00;font-weight:600;">🗂️ 歸檔 7,530件</span>
+      <span style="background:#fef0f0;border-radius:20px;padding:3px 12px;font-size:12px;color:#c0392b;font-weight:600;">🖊️ 用印 770件</span>
+      <span style="background:#f3eef9;border-radius:20px;padding:3px 12px;font-size:12px;color:#7d3c98;font-weight:600;">✉️ 郵寄 511件</span>
+    </div>
+    <div class="ctitle">📋 文書業務詳細數字對照（1-5月）</div>
+    <table class="dtbl">
+      <thead><tr><th>項目</th><th>114年去年</th><th>115年本年</th><th>差異</th></tr></thead>
+      <tbody>
+        <tr><td>總收文</td><td class="pc">6,166件</td><td class="cc">5,591件</td><td>↓ 575件</td></tr>
+        <tr><td>總發文</td><td class="pc">779件</td><td class="cc">644件</td><td>↓ 135件</td></tr>
+        <tr><td>總歸檔量</td><td class="pc">7,880件</td><td class="cc">7,530件</td><td>↓ 350件</td></tr>
+        <tr><td>電子收文比率</td><td class="pc">93.51%</td><td class="cc">94.83%</td><td class="cc">↑ +1.32%</td></tr>
+        <tr><td>電子發文比率</td><td class="pc">94.35%</td><td class="cc">93.17%</td><td>↓ -1.18%</td></tr>
+        <tr><td>線上簽核比率</td><td class="pc">96.27%</td><td class="cc">96.25%</td><td>-0.02%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+  6  保管組
+══════════════════════════════════ -->
+<div class="sec" id="sec6">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#e6f9f5">📦</div>
+    <div><h1>保管組</h1><p>財物管理、學位服、民生餐飲 — 年度比較（2-5月）</p></div>
+  </div>
+
+  <div class="ach" style="background:linear-gradient(135deg,#16a085,#1abc9c)">
+    <div class="ico">☕</div>
+    <div>
+      <div class="at">智能販賣機擴展、滿意度問卷參與 +63.5%，廠商績效評鑑 5/20 召開</div>
+      <div class="ad">咖啡機：<span class="yl">去年3台</span> → <strong>本年6台</strong>；新增智能拉麵機試辦；問卷：<span class="yl">去年263人</span> → <strong>本年430人</strong>；績效評鑑會議 5月20日辦理。</div>
+    </div>
+  </div>
+
+  <div class="row col3">
+    <div class="card">
+      <div class="ctitle">🎓 學位服借用套數（各院）</div>
+      <div class="ch-wrap"><canvas id="ch-gown"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">🏠 本年職務宿舍房型分布（58戶）</div>
+      <div class="ch-wrap"><canvas id="ch-dorm"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">📊 財物管理業務量（115年2-4月）</div>
+      <div class="ch-wrap"><canvas id="ch-prop"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row col2" style="flex:0 0 auto;flex-shrink:0">
+    <div class="card" style="flex-shrink:0">
+      <div class="ctitle">📋 財物管理明細（115年2-5月）</div>
+      <table class="dtbl">
+        <thead><tr><th>業務項目</th><th class="pc">去年同期</th><th class="cc">本年（2-5月）</th></tr></thead>
+        <tbody>
+          <tr><td>採購單</td><td class="pc">5,046件（1-4月）</td><td class="cc">4,928件</td></tr>
+          <tr><td>財產增加單</td><td class="pc">130件</td><td class="cc">107件</td></tr>
+          <tr><td>非消耗品增加單</td><td class="pc">—</td><td class="cc">73件 🆕</td></tr>
+          <tr><td>財物移動單</td><td class="pc">—</td><td class="cc">62件 🆕</td></tr>
+          <tr><td>增(減)值單</td><td class="pc">—</td><td class="cc">29件 🆕</td></tr>
+          <tr><td>報廢單</td><td class="pc">258件</td><td class="cc">270件</td></tr>
+          <tr><td>收繳廢品</td><td class="pc">646件</td><td class="cc">810件 ↑</td></tr>
+          <tr><td>物品借用</td><td class="pc">42次（3-4月）</td><td class="cc">58次（2-5月）</td></tr>
+          <tr><td>消耗品領用</td><td class="pc">—</td><td class="cc">37件 🆕</td></tr>
+          <tr><td>招待所借用</td><td class="pc">—</td><td class="cc">5人 🆕</td></tr>
+        </tbody>
       </table>
     </div>
+    <div class="card" style="flex-shrink:0">
+      <div class="ctitle">🍽️ 民生餐飲服務對比</div>
+      <table class="dtbl">
+        <thead><tr><th>項目</th><th class="pc">114年（去年）</th><th class="cc">115年（本年）</th><th>變化</th></tr></thead>
+        <tbody>
+          <tr><td>智能咖啡機（TouchCafé）</td><td class="pc">3台</td><td class="cc">6台（管理/理/工各+1）</td><td class="cc">↑ +3台</td></tr>
+          <tr><td>智能拉麵販賣機</td><td class="pc">—</td><td class="cc">學二宿舍1樓試辦（至6/30）</td><td class="cc">▲ 新增</td></tr>
+          <tr><td>滿意度問卷參與</td><td class="pc">263人</td><td class="cc">430人</td><td class="cc">↑ +63.5%</td></tr>
+          <tr><td>現金折價券得獎</td><td class="pc">—</td><td class="cc">200位（4/14通知）</td><td class="cc">▲ 新增</td></tr>
+          <tr><td>廠商績效評鑑會議</td><td class="pc">—</td><td class="cc">115/5/20 行政大樓5F</td><td class="cc">▲ 新增</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:8px">
+        <div class="ctitle" style="margin-bottom:5px">🎓 學位服借用（本年合計）</div>
+        <table class="dtbl">
+          <thead><tr><th>類型</th><th>人文</th><th>法學</th><th>管理</th><th>理學</th><th>工學</th><th class="cc">合計</th></tr></thead>
+          <tbody>
+            <tr><td>碩士服</td><td>8</td><td>31</td><td>134</td><td>39</td><td>58</td><td class="cc">270套</td></tr>
+            <tr><td>博士服（主管）🆕</td><td>7</td><td>7</td><td>4</td><td>8</td><td>6</td><td class="cc">32套</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- PAGE 5: 輪調原則 -->
-<div class="page" id="p-rotate">
-  <div class="sec-title">職務輪調原則</div>
-  <div class="sec-desc">依 <strong>115/5/28 總務處職務輪調說明會議紀錄</strong> 制度化，自 115 年起正式實施跨組輪調制度。以下為正式決議原則與配套實施準則。</div>
+<!-- ══════════════════════════════
+  7  環安衛組
+══════════════════════════════════ -->
+<div class="sec" id="sec7">
+  <div class="sl-hdr">
+    <div class="sl-icon" style="background:#eaf7f0">🌿</div>
+    <div><h1>環安衛組</h1><p>節能減碳、永續校園 — 年度對比</p></div>
+  </div>
 
-  <!-- ① 正式決議原則（會議紀錄） -->
-  <div class="card" style="margin-bottom:1.75rem;border-color:#b85c2a44;background:#fffcf9;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
-      <div style="background:#b85c2a;color:#fff;font-size:12px;font-family:'DM Mono',monospace;padding:3px 10px;border-radius:5px;letter-spacing:0.08em;white-space:nowrap;">115/5/28 會議決議</div>
-      <div class="card-title" style="margin-bottom:0;">職務輪調制度原則</div>
-    </div>
-    <!-- 目的 -->
-    <div style="background:#fef4ee;border-left:4px solid #b85c2a;border-radius:0 8px 8px 0;padding:0.85rem 1.25rem;margin-bottom:1.25rem;font-size:14px;color:#444;line-height:1.8;">
-      <strong style="color:#b85c2a;">制度目的：</strong>自 115 年起將處內職務輪調制度化，提高整體組織韌性，促進同仁間互相支援業務。
-    </div>
-    <!-- 四項正式原則 -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;">
-      <div style="padding:1rem 1.15rem;background:#faf9f5;border-radius:8px;border:1.5px solid #e8d8c0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-          <span style="background:#b85c2a;color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;">原則一</span>
-          <span style="font-size:15px;font-weight:700;color:#1a1a18;">現職滿 10 年基準</span>
-        </div>
-        <div style="font-size:14px;color:#555;line-height:1.75;">以現職任職滿 <strong style="color:#b85c2a;">10 年</strong>為輪調啟動基準，確保同仁對現職業務已有充分歷練後再行調動。</div>
-      </div>
-      <div style="padding:1rem 1.15rem;background:#faf9f5;border-radius:8px;border:1.5px solid #e8d8c0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-          <span style="background:#2a6bb8;color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;">原則二</span>
-          <span style="font-size:15px;font-weight:700;color:#1a1a18;">跨組輪調</span>
-        </div>
-        <div style="font-size:14px;color:#555;line-height:1.75;">採跨組輪調方式，<strong>不含組內業務調動</strong>，以確保同仁接觸不同組別之業務，拓展行政視野。</div>
-      </div>
-      <div style="padding:1rem 1.15rem;background:#faf9f5;border-radius:8px;border:1.5px solid #e8d8c0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-          <span style="background:#2a8c50;color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;">原則三</span>
-          <span style="font-size:15px;font-weight:700;color:#1a1a18;">證照培訓補助</span>
-        </div>
-        <div style="font-size:14px;color:#555;line-height:1.75;">若輪調職務需取得相關證照，而被輪調人員尚無該證照，<strong>培訓費用由處內業務費支應</strong>。</div>
-      </div>
-      <div style="padding:1rem 1.15rem;background:#faf9f5;border-radius:8px;border:1.5px solid #e8d8c0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-          <span style="background:#7a5c9a;color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;">原則四</span>
-          <span style="font-size:15px;font-weight:700;color:#1a1a18;">全員說明會</span>
-        </div>
-        <div style="font-size:14px;color:#555;line-height:1.75;">制度正式實施前，由 <strong>總務長邀請全體同仁</strong> 參與說明會，確保制度透明、充分溝通。</div>
-      </div>
-    </div>
-    <!-- 符合基準人數摘要 -->
-    <div style="margin-top:1.25rem;background:#eef4fc;border-radius:8px;padding:0.85rem 1.25rem;font-size:14px;color:#2a3a5a;line-height:1.8;">
-      <strong style="color:#2a6bb8;">📊 依「現職滿10年」基準篩選：</strong>
-      名冊 20 人中，現職年資達 10 年以上者共 <strong id="qualify10yr" style="font-size:17px;color:#b85c2a;">—</strong> 人，為本次輪調制度的優先評估對象；
-      現職未滿 10 年者 <strong id="notqualify10yr" style="font-size:17px;color:#888;">—</strong> 人，本期暫不列入<strong>制度性</strong>輪調，持續累積現職經驗。
+  <div class="ach" style="background:linear-gradient(135deg,#27ae60,#2ecc71)">
+    <div class="ico">🏅</div>
+    <div>
+      <div class="at">🎉 陳又菁榮獲全國環境教育績優人員優等獎（5月14日）</div>
+      <div class="ad">多年帶領本校推動環境教育體驗、校樹保育、永續週系列活動，成果斐然，為本校環境永續最佳典範！</div>
     </div>
   </div>
 
-  <!-- ② 配套實施準則（補充） -->
-  <div class="card" style="margin-bottom:1.75rem;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
-      <div style="background:#555;color:#fff;font-size:12px;font-family:'DM Mono',monospace;padding:3px 10px;border-radius:5px;letter-spacing:0.08em;white-space:nowrap;">配套準則</div>
-      <div class="card-title" style="margin-bottom:0;">輪調實施配套準則</div>
+  <div class="row col2">
+    <div class="card">
+      <div class="ctitle">⚡ 用電量趨勢（度，1-5月）</div>
+      <div class="ch-wrap"><canvas id="ch-elec"></canvas></div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;">
-      <div style="padding:1rem 1.15rem;background:#faf9f5;border-radius:8px;border:1.5px solid #e8e4dc;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-          <span style="background:#555;color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;">準則 A</span>
-          <span style="font-size:15px;font-weight:700;color:#1a1a18;">業務銜接期</span>
-        </div>
-        <div style="font-size:14px;color:#555;line-height:1.75;">輪調前應由接任者與原職人員<strong>重疊辦公至少 1 個月</strong>，確保業務交接完整，不發生斷層。</div>
-      </div>
-      <div style="padding:1rem 1.15rem;background:#faf9f5;border-radius:8px;border:1.5px solid #e8e4dc;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-          <span style="background:#555;color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;">準則 B</span>
-          <span style="font-size:15px;font-weight:700;color:#1a1a18;">師徒傳承制</span>
-        </div>
-        <div style="font-size:14px;color:#555;line-height:1.75;">資深人員輪調時，搭配<strong>較年輕同仁同步跟進學習</strong>，實現知識傳承，縮短接任者的適應期。</div>
-      </div>
-      <div style="padding:1rem 1.15rem;background:#faf9f5;border-radius:8px;border:1.5px solid #e8e4dc;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;">
-          <span style="background:#555;color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:4px;">準則 C</span>
-          <span style="font-size:15px;font-weight:700;color:#1a1a18;">職稱對應原則</span>
-        </div>
-        <div style="font-size:14px;color:#555;line-height:1.75;">跨組輪調應<strong>維持職稱不變</strong>，技術類職稱（技術員、技術工、技士）優先在技術相關組別間對應調動。</div>
-      </div>
+    <div class="card">
+      <div class="ctitle">💧 三年用水量比較（度，1-5月）</div>
+      <div class="ch-wrap"><canvas id="ch-water"></canvas></div>
     </div>
   </div>
 
+  <div class="card" style="flex-shrink:0">
+    <!-- Decorative icon strip -->
+    <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+      <span style="background:#e8f7f2;border-radius:20px;padding:3px 12px;font-size:12px;color:#0f6e56;font-weight:600;">🐦 黃鸝9巢監測</span>
+      <span style="background:#fff8e1;border-radius:20px;padding:3px 12px;font-size:12px;color:#7a4e00;font-weight:600;">🌸 刺桐送別60人</span>
+      <span style="background:#f0eefa;border-radius:20px;padding:3px 12px;font-size:12px;color:#5b2d91;font-weight:600;">🌱 耕作計畫14區</span>
+      <span style="background:#fef0f0;border-radius:20px;padding:3px 12px;font-size:12px;color:#c0392b;font-weight:600;">📚 環教課程6場</span>
+      <span style="background:#e8f0fb;border-radius:20px;padding:3px 12px;font-size:12px;color:#1b3a6b;font-weight:600;">🏅 全國優等獎</span>
+    </div>
+    <div class="ctitle">🌿 生態永續年度亮點對比</div>
+    <table class="dtbl">
+      <thead><tr><th>項目</th><th>114年（去年）</th><th>115年（本年）</th></tr></thead>
+      <tbody>
+        <tr><td>永續週主題</td><td class="pc">碳索鸝想（5/22-29）</td><td class="cc">憶桐茄進珍愛校樹（5/19開展）</td></tr>
+        <tr><td>黃鸝繁殖監測</td><td class="pc">定期監測</td><td class="cc">觀測9巢，3巢順利離巢</td></tr>
+        <tr><td>中小學環教課程</td><td class="pc">—</td><td class="cc">6場（5/20-27）</td></tr>
+        <tr><td>耕作計畫區數</td><td class="pc">—</td><td class="cc">14區（含新申請2區）</td></tr>
+        <tr><td>全國獎項</td><td class="pc">志工金質獎3位</td><td class="cc">環境教育績優優等獎</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-</main>
+</div><!-- /content -->
 
-<footer>
-  <span>國立高雄大學 · 總務處 · 115年校聘人員分析儀表板</span>
-  <span>資料來源：<a href="https://ga.nuk.edu.tw" target="_blank">ga.nuk.edu.tw</a></span>
-</footer>
+<!-- ══ FOOTER ══ -->
+<div class="ftr">
+  <div class="pgind" id="pgInd">1 / 8</div>
+  <div class="fnav">
+    <button id="bPrev" onclick="prevS()" disabled>← 上一頁</button>
+    <button id="bNext" onclick="nextS()">下一頁 →</button>
+  </div>
+  <div>國立高雄大學 總務處 ｜ <span class="yl">●</span>去年同期（113學年） <span class="gl">●</span>本學期（114學年2學期） ｜ ← → 鍵翻頁</div>
+</div>
 
 <script>
-// months = 到校年資(月)；cmonths = 現職年資(月，114/8/31基準)
-// currentRoc = 任現職到職日(民國)，換算：114+1911=2025，基準2025/8
-function calcCmonths(cur){
-  const p=cur.split('/');
-  const cy=parseInt(p[0])+1911, cm=parseInt(p[1]);
-  return Math.max(0,(2025-cy)*12+(8-cm));
+/* ── Nav ── */
+const TOTAL=8; let cur=0;
+const tabs=document.querySelectorAll('.ntab');
+const secs=document.querySelectorAll('.sec');
+function goTo(i){
+  secs[cur].classList.remove('on'); tabs[cur].classList.remove('on');
+  cur=i; secs[cur].classList.add('on'); tabs[cur].classList.add('on');
+  document.querySelector('.content').scrollTop=0;
+  document.getElementById('pgInd').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('bPrev').disabled=cur===0;
+  document.getElementById('bNext').disabled=cur===TOTAL-1;
+  tabs[cur].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
 }
-const staff=[
-  {no:1, name:'張夏甄',title:'校聘組員', arrive:'89/7/1',  current:'97/1/1',  gender:'女',months:302, licenses:[]},
-  {no:2, name:'張珊云',title:'校聘組員', arrive:'91/9/1',  current:'108/2/1', gender:'女',months:276, licenses:[]},
-  {no:3, name:'吕勝宏',title:'校聘專員', arrive:'91/9/26', current:'91/9/26', gender:'男',months:275, licenses:[]},
-  {no:4, name:'黃秋霞',title:'校聘組員', arrive:'92/7/17', current:'109/1/20',gender:'女',months:265, licenses:[]},
-  {no:5, name:'李於數',title:'校聘技士', arrive:'93/3/1',  current:'100/8/1', gender:'女',months:258, licenses:['甲級勞工衛生管理師']},
-  {no:6, name:'楊博安',title:'校聘技術員',arrive:'93/6/4', current:'93/6/4',  gender:'男',months:254, licenses:['微軟認證技術專家 (MCTS)','西門子 Apogee Insight 進階操作訓練結訓證書']},
-  {no:7, name:'陳又菁',title:'校聘專員', arrive:'94/1/3',  current:'100/8/1', gender:'女',months:247, licenses:['環境教育人員']},
-  {no:8, name:'曾建堯',title:'校聘組員', arrive:'95/11/15',current:'95/11/15',gender:'男',months:225, licenses:[]},
-  {no:9, name:'鄭雅文',title:'校聘組員', arrive:'96/9/14', current:'111/5/2', gender:'女',months:191, licenses:[]},
-  {no:10,name:'洪慧珍',title:'校聘組員', arrive:'97/1/2',  current:'108/2/1', gender:'女',months:211, licenses:[]},
-  {no:11,name:'陸亞貞',title:'校聘組員', arrive:'97/1/4',  current:'110/2/22',gender:'女',months:205, licenses:[]},
-  {no:12,name:'陳怡佑',title:'校聘組員', arrive:'99/5/18', current:'110/12/1',gender:'女',months:183, licenses:[]},
-  {no:13,name:'張志堅',title:'校聘技術員',arrive:'98/10/1',current:'100/9/1', gender:'男',months:191, licenses:['防火管理人員']},
-  {no:14,name:'何惠真',title:'校聘組員', arrive:'102/10/1',current:'102/10/1',gender:'女',months:143, licenses:[]},
-  {no:15,name:'朱志昇',title:'校聘技術員',arrive:'104/7/22',current:'104/7/22',gender:'男',months:121, licenses:['甲級廢水處理專責人員']},
-  {no:16,name:'李欣祐',title:'校聘技術工',arrive:'107/1/2',current:'107/1/2', gender:'男',months:91,  licenses:[]},
-  {no:17,name:'鄭宥萱',title:'校聘組員', arrive:'106/6/28',current:'109/6/1', gender:'女',months:98,  licenses:[]},
-  {no:18,name:'劉順天',title:'校聘組員', arrive:'109/1/2', current:'109/1/2', gender:'男',months:67,  licenses:[]},
-  {no:19,name:'高月華',title:'校聘技術工',arrive:'111/7/1',current:'111/7/1', gender:'女',months:38,  licenses:[]},
-  {no:20,name:'鄭昌彬',title:'校聘組員', arrive:'112/9/25',current:'112/9/25',gender:'男',months:23,  licenses:[]},
-].map(s=>({...s, cmonths:calcCmonths(s.current)}));
-
-function rocToAD(s){const p=s.split('/');return {y:parseInt(p[0])+1911,m:parseInt(p[1])};}
-function calcGap(a,c){const A=rocToAD(a),C=rocToAD(c);return Math.max(0,(C.y-A.y)*12+(C.m-A.m));}
-function tier(m){return m>=240?'senior':m>=120?'mid':'junior';}
-const tLabel={senior:'資深',mid:'中堅',junior:'年輕'};
-const tColor={senior:'#b85c2a',mid:'#2a6bb8',junior:'#2a8c50'};
-const tBg   ={senior:'#fef4ee',mid:'#eef4fc',junior:'#edf7f1'};
-
-// KPI avg
-const avg=(staff.reduce((s,x)=>s+x.months,0)/staff.length/12).toFixed(1);
-document.getElementById('kpiAvg').textContent=avg+'年';
-
-// ── Navigation ──
-function goPage(id,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-  setTimeout(animateBars,100);
-}
-
-// ── Gender donut ──
-new Chart(document.getElementById('genderChart'),{
-  type:'doughnut',
-  data:{labels:['女性','男性'],datasets:[{data:[12,8],backgroundColor:['#c47aaa','#4a8fc4'],borderWidth:0,hoverOffset:4}]},
-  options:{cutout:'70%',responsive:true,maintainAspectRatio:true,
-    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}：${c.parsed}人`}}}}
+function prevS(){if(cur>0)goTo(cur-1);}
+function nextS(){if(cur<TOTAL-1)goTo(cur+1);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')nextS();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevS();
 });
 
-// ── Gender × Title stacked bar ──
-const titleList=['校聘組員','校聘技術員','校聘專員','校聘技術工','校聘技士'];
-const femaleByTitle=titleList.map(t=>staff.filter(s=>s.gender==='女'&&s.title===t).length);
-const maleByTitle  =titleList.map(t=>staff.filter(s=>s.gender==='男'&&s.title===t).length);
-new Chart(document.getElementById('genderTitleChart'),{
-  type:'bar',
-  data:{
-    labels:titleList,
-    datasets:[
-      {label:'女性',data:femaleByTitle,backgroundColor:'#c47aaa',borderRadius:3,borderSkipped:false},
-      {label:'男性',data:maleByTitle, backgroundColor:'#4a8fc4',borderRadius:3,borderSkipped:false},
-    ]
+/* ── Chart config ── */
+const P='rgba(232,168,32,.80)', C='rgba(29,158,117,.85)';
+const PB='rgba(180,120,10,1)',  CB='rgba(13,95,70,1)';
+Chart.defaults.font.family="'Noto Sans TC','Microsoft JhengHei',sans-serif";
+Chart.defaults.font.size=13;
+Chart.defaults.color='#2c3e60';
+
+const ds=(lbl,data,isPrev,extra={})=>({
+  label:lbl, data,
+  backgroundColor:isPrev?P:C,
+  borderColor:isPrev?PB:CB,
+  borderWidth:1.5, borderRadius:4,
+  ...extra
+});
+
+const baseOpts=(yLbl,extra={})=>({
+  responsive:true, maintainAspectRatio:false,
+  plugins:{
+    legend:{position:'top',labels:{boxWidth:13,padding:10,font:{size:13}}},
+    tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toLocaleString()+(yLbl||'')}}
   },
-  options:{
-    responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{labels:{color:'#444',font:{family:'Noto Sans TC',size:13},boxWidth:10}}},
-    scales:{
-      x:{ticks:{color:'#555',font:{family:'Noto Sans TC',size:12}},grid:{display:false},border:{color:'#ddd'}},
-      y:{ticks:{color:'#888',stepSize:1,font:{family:'DM Mono',size:12}},grid:{color:'#f0ede6'},border:{color:'transparent'}}
-    }
+  scales:{
+    y:{beginAtZero:true,grid:{color:'rgba(0,0,0,.04)'},
+       ticks:{maxTicksLimit:5,font:{size:12},callback:v=>yLbl?v.toLocaleString()+yLbl:v.toLocaleString()}},
+    x:{grid:{display:false},ticks:{font:{size:12}}}
+  },
+  ...extra
+});
+
+/* Doughnut helper */
+const DPAL_CUR  = ['rgba(29,158,117,.85)','rgba(27,58,107,.82)','rgba(232,168,32,.85)','rgba(197,60,42,.82)','rgba(90,127,212,.85)','rgba(155,89,182,.82)'];
+const DPAL_PREV = ['rgba(232,168,32,.75)','rgba(180,120,10,.7)','rgba(90,127,212,.7)','rgba(155,89,182,.7)','rgba(197,60,42,.7)','rgba(29,158,117,.6)'];
+const doughnutOpts=(title)=>({
+  responsive:true, maintainAspectRatio:false,
+  cutout:'52%',
+  plugins:{
+    legend:{position:'right',labels:{boxWidth:12,padding:10,font:{size:12}}},
+    tooltip:{callbacks:{label:c=>{
+      const tot=c.dataset.data.reduce((a,b)=>a+b,0);
+      const pct=((c.parsed/tot)*100).toFixed(1);
+      return c.label+': '+c.parsed.toLocaleString()+' ('+pct+'%)';
+    }}}
   }
 });
 
-// ── Title hbars ──
-const titleData=[
-  {label:'校聘組員',   count:12,color:'#4a8fc4',names:'張夏甄・張珊云・黃秋霞・洪慧珍・陸亞貞・陳怡佑・何惠真・鄭宥萱・劉順天・鄭昌彬・曾建堯・鄭雅文'},
-  {label:'校聘技術員', count:3, color:'#2a8c50',names:'楊博安・張志堅・朱志昇'},
-  {label:'校聘專員',   count:2, color:'#b85c2a',names:'吕勝宏・陳又菁'},
-  {label:'校聘技術工', count:2, color:'#c47aaa',names:'李欣祐・高月華'},
-  {label:'校聘技士',   count:1, color:'#7a5c9a',names:'李於數'},
-];
-const tbEl=document.getElementById('titleBars');
-titleData.forEach(d=>{
-  const pct=(d.count/12*100).toFixed(0);
-  tbEl.innerHTML+=`
-  <div class="hbar-row" title="${d.names}">
-    <div class="hbar-top">
-      <span class="hbar-name">${d.label} <span style="font-size:12px;color:#aaa;">${d.names}</span></span>
-      <span class="hbar-cnt">${d.count} 人</span>
-    </div>
-    <div class="hbar-track"><div class="hbar-fill" style="width:0%;background:${d.color};" data-w="${pct}"></div></div>
-  </div>`;
-});
-
-// ── Title donut ──
-new Chart(document.getElementById('titleChart'),{
-  type:'doughnut',
+/* ══════════════════════
+   0  總覽亮點
+══════════════════════ */
+new Chart('ch-overview',{type:'bar',
   data:{
-    labels:titleData.map(d=>d.label),
-    datasets:[{data:titleData.map(d=>d.count),backgroundColor:titleData.map(d=>d.color),borderWidth:2,borderColor:'#fff',hoverOffset:5}]
-  },
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'right',labels:{color:'#444',font:{family:'Noto Sans TC',size:13},boxWidth:10,padding:14}},
-    tooltip:{callbacks:{label:c=>` ${c.label}：${c.parsed}人`}}}}
-});
-
-// ── Seniority grouped bar: sorted by cmonths (現職年資) desc ──
-const sortedC=[...staff].sort((a,b)=>b.cmonths-a.cmonths);
-new Chart(document.getElementById('seniorityChart'),{
-  type:'bar',
-  data:{
-    labels:sortedC.map(s=>s.name),
+    labels:['線上簽核(%)','電子收文(%)','電子發文(%)','冷氣汰換(台)'],
     datasets:[
-      {label:'到校年資',     data:sortedC.map(s=>s.months),  backgroundColor:'#b85c2a88',borderColor:'#b85c2a',borderWidth:0,borderRadius:3,borderSkipped:false},
-      {label:'現職年資',     data:sortedC.map(s=>s.cmonths), backgroundColor:'#2a6bb8cc',borderColor:'#2a6bb8',borderWidth:0,borderRadius:3,borderSkipped:false},
+      ds('去年（113學年）',[96.27,93.51,94.35,71],true),
+      ds('本年（114學年）',[96.25,94.83,93.17,85],false)
     ]
   },
   options:{
-    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
     plugins:{
-      legend:{labels:{color:'#444',font:{family:'Noto Sans TC',size:13},boxWidth:10}},
-      tooltip:{callbacks:{
-        label:c=>{
-          const s=sortedC[c.dataIndex];
-          const m=c.datasetIndex===0?s.months:s.cmonths;
-          return ` ${c.dataset.label}：${Math.floor(m/12)}年${m%12}月`;
-        }
-      }}
+      legend:{position:'top',labels:{boxWidth:13,padding:10,font:{size:13}}},
+      tooltip:{callbacks:{label:c=>{
+        const units=['%','%','%','台'];
+        return c.dataset.label+': '+c.parsed.x.toLocaleString()+units[c.dataIndex];
+      }}}
     },
     scales:{
-      x:{ticks:{color:'#888',callback:v=>Math.round(v/12)+'年',font:{family:'DM Mono',size:12}},grid:{color:'#f0ede6'},border:{color:'transparent'}},
-      y:{ticks:{color:'#333',font:{family:'Noto Sans TC',size:13}},grid:{display:false},border:{color:'transparent'}}
+      x:{beginAtZero:true,grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:12}}},
+      y:{grid:{display:false},ticks:{font:{size:12.5}}}
     }
   }
 });
 
-// ── Tier chart: based on 現職年資 ──
-const ctier=m=>m>=120?'senior':m>=60?'mid':'junior';
-const cTierCounts={senior:0,mid:0,junior:0};
-staff.forEach(s=>{cTierCounts[ctier(s.cmonths)]++;});
-new Chart(document.getElementById('tierChart'),{
-  type:'doughnut',
+/* ══════════════════════
+   1  總務長室 — 長條圖（金額比較）
+══════════════════════ */
+new Chart('ch-grant',{type:'bar',
+  data:{labels:['圖儀設備費','智慧水資源/災損'],
+    datasets:[ds('113學年去年',[11205000,7100000],true), ds('114學年本年',[12857834,9171056],false)]},
+  options:baseOpts('元')});
+
+/* ══════════════════════
+   2  營繕組 — 冷氣長條對比（今昨一眼看出）
+══════════════════════ */
+new Chart('ch-ac',{type:'bar',
   data:{
-    labels:[`現職資深 10年以上（${cTierCounts.senior}人）`,`現職中堅 5–10年（${cTierCounts.mid}人）`,`現職年輕 5年以下（${cTierCounts.junior}人）`],
-    datasets:[{data:[cTierCounts.senior,cTierCounts.mid,cTierCounts.junior],backgroundColor:['#b85c2a','#2a6bb8','#2a8c50'],borderWidth:2,borderColor:'#fff',hoverOffset:4}]
+    labels:['學二宿舍冷氣汰換（台）'],
+    datasets:[
+      ds('去年（113學年，OE棟）',[71],true),
+      ds('本年（114學年，全棟）',[85],false)
+    ]
   },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{boxWidth:13,padding:10,font:{size:13}}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y+'台'}}
+    },
+    scales:{
+      y:{beginAtZero:true,max:100,grid:{color:'rgba(0,0,0,.04)'},
+         ticks:{font:{size:13},callback:v=>v+'台'},
+         title:{display:true,text:'汰換台數',font:{size:12},color:'#4a5570'}},
+      x:{grid:{display:false},ticks:{font:{size:13}}}
+    }
+  }
+});
+
+/* ══════════════════════
+   3  事務組：採購 — 本年採購方式圓餅圖
+══════════════════════ */
+new Chart('ch-proc',{type:'doughnut',
+  data:{
+    labels:['共同供應契約','公開招標','科研採購','議價','公開取得'],
+    datasets:[{
+      data:[20,4,4,5,4],
+      backgroundColor:DPAL_CUR,
+      borderColor:['#0f6e56','#1b3a6b','#c88b1a','#c0392b','#2756a8'],
+      borderWidth:2
+    }]
+  },
+  options:doughnutOpts('本年採購方式分布（37件）')
+});
+
+/* ══════════════════════
+   3  事務組：派車 — 長條圖（次數里程比較）
+══════════════════════ */
+new Chart('ch-car',{type:'bar',
+  data:{labels:['貨車(次)','九人座(次)','貨車(km)','九人座(km)'],
+    datasets:[ds('去年1-4月',[38,17,258,641],true), ds('本年1-4月',[17,12,123,451],false)]},
+  options:baseOpts('')});
+
+/* ══════════════════════
+   3  事務組：警衛通報 — 長條圖
+══════════════════════ */
+new Chart('ch-sec',{type:'bar',
+  data:{labels:['門窗未關','燈光未關','廁所壓扣','門禁故障','水電通報','拾獲物','電梯故障','消防警報','合計'],
+    datasets:[ds('去年1-4月',[54,42,133,26,28,29,5,9,400],true), ds('本年1-4月',[59,48,97,51,43,24,18,12,418],false)]},
+  options:baseOpts('件')});
+
+/* ══════════════════════
+   4  出納組 — 長條圖
+══════════════════════ */
+new Chart('ch-tuit',{type:'bar',
+  data:{labels:['學雜費徵收（萬）','退費（萬）'],
+    datasets:[ds('113學年去年',[14180.7,106.9],true), ds('114學年本年',[13846.7,83.5],false)]},
+  options:baseOpts('萬')});
+
+/* ══════════════════════
+   5  文書組：電子化指標 — 長條圖（比較才有意義）
+══════════════════════ */
+new Chart('ch-dig',{type:'bar',
+  data:{labels:['線上簽核','電子收文','電子發文'],
+    datasets:[ds('去年',[96.27,93.51,94.35],true), ds('本年',[96.25,94.83,93.17],false)]},
+  options:baseOpts('%',{scales:{y:{min:90,max:100,grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:12},callback:v=>v+'%'}},x:{grid:{display:false},ticks:{font:{size:12}}}}})});
+
+/* ══════════════════════
+   5  文書組：公文量 — 長條圖
+══════════════════════ */
+new Chart('ch-docs',{type:'bar',
+  data:{labels:['總收文','電子收文','總發文','電子發文','總歸檔'],
+    datasets:[ds('去年',[6166,5766,779,735,7880],true), ds('本年',[5591,5302,644,600,7530],false)]},
+  options:baseOpts('件')});
+
+/* ══════════════════════
+   6  保管組：學位服 — 長條圖（各院比較）
+══════════════════════ */
+new Chart('ch-gown',{type:'bar',
+  data:{labels:['人文院','法學院','管理院','理學院','工學院'],
+    datasets:[
+      ds('去年碩士服',[13,26,125,34,75],true),
+      ds('本年碩士服',[8,31,134,39,58],false),
+      {label:'本年博士服（主管）🆕',data:[7,7,4,8,6],
+       backgroundColor:'rgba(91,162,209,.75)',borderColor:'rgba(30,100,160,1)',borderWidth:1.5,borderRadius:4}
+    ]},
+  options:baseOpts('套')});
+
+/* ══════════════════════
+   6  保管組：宿舍 — 圓餅圖（本年房型分布）
+══════════════════════ */
+new Chart('ch-dorm',{type:'doughnut',
+  data:{
+    labels:['三房型（28戶）','二房型（10戶）','單房型（20戶）'],
+    datasets:[{
+      data:[28,10,20],
+      backgroundColor:['rgba(27,58,107,.82)','rgba(29,158,117,.80)','rgba(232,168,32,.82)'],
+      borderColor:['#1b3a6b','#0f6e56','#c88b1a'],
+      borderWidth:2
+    }]
+  },
+  options:{
+    ...doughnutOpts(),
+    plugins:{
+      legend:{position:'right',labels:{boxWidth:12,padding:10,font:{size:12}}},
+      tooltip:{callbacks:{label:c=>c.label+' 共 '+c.parsed+' 戶'}}
+    }
+  }
+});
+
+/* ══════════════════════
+   6  保管組：財物 — 長條圖
+══════════════════════ */
+new Chart('ch-prop',{type:'bar',
+  data:{labels:['採購單','財產增加','報廢單','收繳廢品','物品借用'],
+    datasets:[ds('去年1-4月',[5046,130,258,646,42],true), ds('本年2-4月',[4928,107,270,810,58],false)]},
+  options:baseOpts('件')});
+
+/* ══════════════════════
+   7  環安衛：用電趨勢 — 折線圖
+══════════════════════ */
+new Chart('ch-elec',{type:'line',
+  data:{labels:['112年基準','113年同期','114年去年','115年本年'],
+    datasets:[{label:'用電量（度）',
+      data:[4441270,3265241,4276443,4295478],
+      borderColor:CB,backgroundColor:'rgba(29,158,117,.08)',
+      borderWidth:2.5,pointRadius:6,pointBackgroundColor:CB,fill:true,tension:.3}]},
   options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom',labels:{color:'#444',font:{family:'Noto Sans TC',size:13},boxWidth:10,padding:14}},
-    tooltip:{callbacks:{label:c=>` ${c.parsed}人`}}}}
+    plugins:{legend:{labels:{font:{size:13}}},tooltip:{callbacks:{label:c=>c.parsed.y.toLocaleString()+'度'}}},
+    scales:{y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:12},callback:v=>(v/10000).toFixed(0)+'萬'}},
+            x:{grid:{display:false},ticks:{font:{size:12}}}}}});
+
+/* ══════════════════════
+   7  環安衛：用水 — 長條圖（年度對比清楚）
+══════════════════════ */
+new Chart('ch-water',{type:'bar',
+  data:{
+    labels:['1-5月用水量（度）'],
+    datasets:[
+      {label:'113年同期',data:[48424],backgroundColor:'rgba(160,160,160,.60)',borderColor:'#888',borderWidth:1.5,borderRadius:4},
+      ds('114年去年',[74423],true),
+      ds('115年本年',[77824],false)
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{
+      legend:{position:'top',labels:{boxWidth:13,padding:10,font:{size:13}}},
+      tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.parsed.y.toLocaleString()+'度'}}
+    },
+    scales:{
+      y:{beginAtZero:true,grid:{color:'rgba(0,0,0,.04)'},
+         ticks:{font:{size:12},callback:v=>(v/10000).toFixed(1)+'萬'},
+         title:{display:true,text:'用水量（度）',font:{size:12},color:'#4a5570'}},
+      x:{grid:{display:false},ticks:{font:{size:12}}}
+    }
+  }
 });
-
-// ── 現職年資 hbars ──
-const sortedC2=[...staff].sort((a,b)=>b.cmonths-a.cmonths);
-const maxCm=sortedC2[0].cmonths;
-const cbEl=document.getElementById('cmonthsBars');
-sortedC2.forEach(s=>{
-  const pct=(s.cmonths/maxCm*100).toFixed(0);
-  const ct=ctier(s.cmonths);
-  const cc={senior:'#b85c2a',mid:'#2a6bb8',junior:'#2a8c50'}[ct];
-  cbEl.innerHTML+=`
-  <div class="hbar-row">
-    <div class="hbar-top">
-      <span class="hbar-name">${s.name} <span style="font-size:11px;color:#aaa;">${s.title}</span></span>
-      <span class="hbar-cnt" style="color:${cc};">${Math.floor(s.cmonths/12)}年${s.cmonths%12}月</span>
-    </div>
-    <div class="hbar-track"><div class="hbar-fill" style="width:0%;background:${cc};" data-w="${pct}"></div></div>
-  </div>`;
-});
-
-// ── Staff table：依現職年資從多到少排序 ──
-const tbody=document.getElementById('staffTbody');
-const maxM=302; const maxCM=staff.reduce((a,s)=>Math.max(a,s.cmonths),0);
-const staffSorted=[...staff].sort((a,b)=>b.cmonths-a.cmonths);
-staffSorted.forEach((s,idx)=>{
-  const ct=ctier(s.cmonths);
-  const pctA=Math.round(s.months/maxM*90);
-  const pctC=Math.round(s.cmonths/maxCM*90);
-  const gc=s.gender==='女'?'#c47aaa':'#4a8fc4';
-  const gbg=s.gender==='女'?'#f9eef6':'#eef4fc';
-  const licHtml=s.licenses.length
-    ? s.licenses.map(l=>`<span style="display:inline-block;background:#f0f7ee;color:#2a5c20;border:1px solid #c8e0c0;border-radius:5px;font-size:11px;padding:2px 7px;margin:2px 3px 2px 0;white-space:nowrap;">🏅 ${l}</span>`).join('')
-    : `<span style="color:#ccc;font-size:12px;">—</span>`;
-  tbody.innerHTML+=`
-  <tr data-tier="${ct}" data-licensed="${s.licenses.length>0?'yes':'no'}">
-    <td style="font-family:'DM Mono',monospace;color:#aaa;font-size:13px;">${idx+1}</td>
-    <td class="td-name">${s.name}</td>
-    <td style="font-size:13px;">${s.title}</td>
-    <td><span class="gpill" style="background:${gbg};color:${gc};">${s.gender}</span></td>
-    <td style="font-family:'DM Mono',monospace;font-size:12px;color:#888;">${s.arrive}</td>
-    <td style="font-family:'DM Mono',monospace;font-size:13px;color:#555;">${Math.floor(s.months/12)}年${s.months%12}月</td>
-    <td style="font-family:'DM Mono',monospace;font-size:12px;color:#888;">${s.current}</td>
-    <td style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:#2a6bb8;">${Math.floor(s.cmonths/12)}年${s.cmonths%12}月</td>
-    <td>
-      <div style="display:flex;flex-direction:column;gap:3px;min-width:100px;">
-        <div style="display:flex;align-items:center;gap:5px;">
-          <span style="font-size:10px;color:#b85c2a;width:24px;flex-shrink:0;">到校</span>
-          <div style="flex:1;height:5px;background:#f0ede6;border-radius:3px;overflow:hidden;">
-            <div class="hbar-fill" style="width:0%;height:100%;background:#b85c2a88;border-radius:3px;" data-w="${pctA}"></div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:5px;">
-          <span style="font-size:10px;color:#2a6bb8;width:24px;flex-shrink:0;">現職</span>
-          <div style="flex:1;height:5px;background:#eef4fc;border-radius:3px;overflow:hidden;">
-            <div class="hbar-fill" style="width:0%;height:100%;background:#2a6bb8cc;border-radius:3px;" data-w="${pctC}"></div>
-          </div>
-        </div>
-      </div>
-    </td>
-    <td style="min-width:200px;">${licHtml}</td>
-  </tr>`;
-});
-
-function filterTable(f,btn){
-  document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('#staffTbody tr').forEach(tr=>{
-    let show=false;
-    if(f==='all') show=true;
-    else if(f==='licensed') show=tr.dataset.licensed==='yes';
-    else show=tr.dataset.tier===f;
-    tr.style.display=show?'':'none';
-  });
-}
-
-// ── Animate bars ──
-function animateBars(){
-  document.querySelectorAll('.hbar-fill').forEach(el=>{el.style.width=el.dataset.w+'%';});
-}
-setTimeout(animateBars,400);
-
-// ── 10年基準人數統計 ──
-const qualify   = staff.filter(s=>s.cmonths>=120).length;
-const notQualify= staff.length - qualify;
-const q10 = document.getElementById('qualify10yr');
-const nq10= document.getElementById('notqualify10yr');
-if(q10) q10.textContent = qualify + ' 人';
-if(nq10) nq10.textContent = notQualify + ' 人';
 </script>
 </body>
 </html>
