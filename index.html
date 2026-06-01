@@ -580,20 +580,20 @@ body{font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif;background:var(-
 
   <div class="row col2" style="flex:0 0 auto;flex-shrink:0">
     <div class="card" style="flex-shrink:0">
-      <div class="ctitle">📋 財物管理明細（115年2-5月）</div>
+      <div class="ctitle">📋 財物管理明細（去年114年1-4月 vs 本年115年2-5月）</div>
       <table class="dtbl">
-        <thead><tr><th>業務項目</th><th class="pc">去年同期</th><th class="cc">本年（2-5月）</th></tr></thead>
+        <thead><tr><th>業務項目</th><th class="pc">去年（114年1-4月）</th><th class="cc">本年（115年2-5月）</th><th>差異</th></tr></thead>
         <tbody>
-          <tr><td>採購單</td><td class="pc">5,046件（1-4月）</td><td class="cc">4,928件</td></tr>
-          <tr><td>財產增加單</td><td class="pc">130件</td><td class="cc">107件</td></tr>
-          <tr><td>非消耗品增加單</td><td class="pc">—</td><td class="cc">73件 🆕</td></tr>
-          <tr><td>財物移動單</td><td class="pc">—</td><td class="cc">62件 🆕</td></tr>
-          <tr><td>增(減)值單</td><td class="pc">—</td><td class="cc">29件 🆕</td></tr>
-          <tr><td>報廢單</td><td class="pc">258件</td><td class="cc">270件</td></tr>
-          <tr><td>收繳廢品</td><td class="pc">646件</td><td class="cc">810件 ↑</td></tr>
-          <tr><td>物品借用</td><td class="pc">42次（3-4月）</td><td class="cc">58次（2-5月）</td></tr>
-          <tr><td>消耗品領用</td><td class="pc">—</td><td class="cc">37件 🆕</td></tr>
-          <tr><td>招待所借用</td><td class="pc">—</td><td class="cc">5人 🆕</td></tr>
+          <tr><td>採購單</td><td class="pc">5,046件</td><td class="cc">4,928件</td><td>↓ 118件</td></tr>
+          <tr><td>財產增加單</td><td class="pc">130件</td><td class="cc">107件</td><td>↓ 23件</td></tr>
+          <tr><td>非消耗品增加單</td><td class="pc">45件</td><td class="cc">73件</td><td class="cc">↑ +28件</td></tr>
+          <tr><td>財物移動單</td><td class="pc">115件</td><td class="cc">62件</td><td>↓ 53件</td></tr>
+          <tr><td>增(減)值單</td><td class="pc">34件</td><td class="cc">29件</td><td>↓ 5件</td></tr>
+          <tr><td>報廢單</td><td class="pc">258件</td><td class="cc">270件</td><td class="cc">↑ +12件</td></tr>
+          <tr><td>收繳廢品</td><td class="pc">646件</td><td class="cc">810件</td><td class="cc">↑ +164件</td></tr>
+          <tr><td>物品借用</td><td class="pc">42次</td><td class="cc">58次</td><td class="cc">↑ +16次</td></tr>
+          <tr><td>消耗品領用</td><td class="pc">45件</td><td class="cc">37件</td><td>↓ 8件</td></tr>
+          <tr><td>招待所借用</td><td class="pc">—</td><td class="cc">5人 🆕</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
@@ -610,12 +610,13 @@ body{font-family:'Noto Sans TC','Microsoft JhengHei',sans-serif;background:var(-
         </tbody>
       </table>
       <div style="margin-top:8px">
-        <div class="ctitle" style="margin-bottom:5px">🎓 學位服借用（本年合計）</div>
+        <div class="ctitle" style="margin-bottom:5px">🎓 學位服借用（今昨對照）</div>
         <table class="dtbl">
-          <thead><tr><th>類型</th><th>人文</th><th>法學</th><th>管理</th><th>理學</th><th>工學</th><th class="cc">合計</th></tr></thead>
+          <thead><tr><th>類型</th><th>人文</th><th>法學</th><th>管理</th><th>理學</th><th>工學</th><th>合計</th></tr></thead>
           <tbody>
-            <tr><td>碩士服</td><td>8</td><td>31</td><td>134</td><td>39</td><td>58</td><td class="cc">270套</td></tr>
-            <tr><td>博士服（主管）🆕</td><td>7</td><td>7</td><td>4</td><td>8</td><td>6</td><td class="cc">32套</td></tr>
+            <tr><td><span class="yl">去年（113學年）</span></td><td class="pc">13</td><td class="pc">26</td><td class="pc">125</td><td class="pc">34</td><td class="pc">75</td><td class="pc">273件</td></tr>
+            <tr><td><span class="gl">本年碩士服</span></td><td class="cc">8</td><td class="cc">31</td><td class="cc">134</td><td class="cc">39</td><td class="cc">58</td><td class="cc">270套</td></tr>
+            <tr><td><span class="gl">本年博士服 🆕</span></td><td class="cc">7</td><td class="cc">7</td><td class="cc">4</td><td class="cc">8</td><td class="cc">6</td><td class="cc">32套</td></tr>
           </tbody>
         </table>
       </div>
@@ -875,7 +876,7 @@ new Chart('ch-docs',{type:'bar',
 new Chart('ch-gown',{type:'bar',
   data:{labels:['人文院','法學院','管理院','理學院','工學院'],
     datasets:[
-      ds('去年碩士服',[13,26,125,34,75],true),
+      ds('去年（113學年，碩博合計）',[13,26,125,34,75],true),
       ds('本年碩士服',[8,31,134,39,58],false),
       {label:'本年博士服（主管）🆕',data:[7,7,4,8,6],
        backgroundColor:'rgba(91,162,209,.75)',borderColor:'rgba(30,100,160,1)',borderWidth:1.5,borderRadius:4}
@@ -905,11 +906,14 @@ new Chart('ch-dorm',{type:'doughnut',
 });
 
 /* ══════════════════════
-   6  保管組：財物 — 長條圖
+   6  保管組：財物 — 長條圖（完整比較含新細項）
 ══════════════════════ */
 new Chart('ch-prop',{type:'bar',
-  data:{labels:['採購單','財產增加','報廢單','收繳廢品','物品借用'],
-    datasets:[ds('去年1-4月',[5046,130,258,646,42],true), ds('本年2-4月',[4928,107,270,810,58],false)]},
+  data:{labels:['採購單','財產增加','非消耗品增加','財物移動','增減值單','報廢單','收繳廢品','物品借用','消耗品領用'],
+    datasets:[
+      ds('去年（114年1-4月）',[5046,130,45,115,34,258,646,42,45],true),
+      ds('本年（115年2-4月）',[4928,107,73,62,29,270,810,58,37],false)
+    ]},
   options:baseOpts('件')});
 
 /* ══════════════════════
